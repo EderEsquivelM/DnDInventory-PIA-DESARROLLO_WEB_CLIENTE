@@ -1,26 +1,29 @@
-
 import './globals.css';
+import Link from 'next/link';
 import { MercaderProvider } from '../context/MercaderContext';
 import Header from '../components/Header';
-import FabButton from '../components/FabButton';
-import BalanzaDrawer from '../components/BalanzaDrawer';
 
 export const metadata = {
-  title: 'D&D Arcane Compendium',
-  description: 'Tomo de Insumos & Reliquias',
-}
+  title: 'D&D Inventory | Códice del Dungeon Master',
+  description: 'Tomo de Insumos, Reliquias, Calculadora Comercial y Transmutador de Divisas para D&D 5e.',
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <body className="min-h-screen flex flex-col relative overflow-x-hidden">
+      <body>
         <MercaderProvider>
           <Header />
           {children}
-          <FabButton />
-          <BalanzaDrawer />
+          <footer className="site-footer">
+            <div className="footer-inner">
+              <p style={{ margin: 0 }}>
+                <strong>D&D Inventory</strong> — Herramienta de asistencia para Dungeon Masters.
+              </p>
+            </div>
+          </footer>
         </MercaderProvider>
       </body>
     </html>
-  )
+  );
 }
