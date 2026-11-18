@@ -54,8 +54,7 @@ export default function ConversorPage() {
         <main className="converter-page">
             <section className="converter-panel" aria-labelledby="converter-title">
                 <header className="converter-heading">
-                    <h2 id="converter-title">Transmutador de Monedas</h2>
-                    <p>Equivalencias oficiales bajo las leyes de la Alianza Mercantil.</p>
+                    <h2 id="converter-title">Conversor de Monedas</h2>
                 </header>
 
                 <form onSubmit={handleSubmit} noValidate>
@@ -157,7 +156,7 @@ export default function ConversorPage() {
                         htmlFor="conv-amount conv-from conv-to"
                         aria-live="polite"
                     >
-                        <small>Transmutado en</small>
+                        <small>Conversión en</small>
                         <strong>
                             {conversionResult} <em>{toLabel}</em>
                         </strong>
