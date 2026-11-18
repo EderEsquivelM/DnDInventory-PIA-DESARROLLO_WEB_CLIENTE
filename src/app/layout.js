@@ -20,7 +20,13 @@ export default function RootLayout({ children }) {
               <p style={{ margin: 0 }}>
                 <strong>D&D Inventory</strong> — Herramienta de asistencia para Dungeon Masters.
               </p>
+              <nav aria-label="Enlaces del pie de página" className="footer-links">
+                <Link href="/">Códice</Link>
+                <Link href="/conversor">Conversor</Link>
+                <Link href="/guia-mercader">Repartidor de Botín</Link>
+              </nav>
             </div>
+
           </footer>
         </MercaderProvider>
       </body>
