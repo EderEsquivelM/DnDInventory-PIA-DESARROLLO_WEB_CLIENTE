@@ -188,7 +188,7 @@ export default function BalanzaDrawer() {
                         </div>
                         <div className="ticket-row">
                             <span>Carga Física:</span>
-                            <b>{selectedItem ? `${selectedItem.weight} kg` : '0 kg'}</b>
+                            <b>{selectedItem ? `${selectedItem.weight} lb` : '0 lb'}</b>
                         </div>
                     </section>
 
