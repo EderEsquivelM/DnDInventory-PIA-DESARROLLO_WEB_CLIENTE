@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# D&D Inventory — Códice del Dungeon Master
 
-## Getting Started
+Aplicación web responsiva desarrollada con **Next.js (App Router)** diseñada para asistir a Dungeon Masters y jugadores de **Dungeons & Dragons 5e** en la consulta de equipamiento, cálculo de cambio comercial, conversión de divisas y repartición equitativa de botín.
 
-First, run the development server:
+## Enlaces del Proyecto
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Aplicación en producción (GitHub Pages):** https://ederesquivelm.github.io/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE/
+- **Repositorio Git:** https://github.com/EderEsquivelM/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Funcionalidades Principales
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Códice de Ítems (`/`):**
+   - Catálogo relacional de **100 objetos** organizados en 5 clases (*Consumibles*, *Armaduras*, *Armas*, *Transporte y Monturas* y *Equipo de Aventura*) y 14 subcategorías.
+   - Búsqueda en tiempo real, filtros por rango de precio (en oro equivalente) y peso (lb), ordenamiento ascendente/descendente y filtros dinámicos según el tipo de objeto (CA, requisito de fuerza, sigilo, tipo/dado/propiedades de daño, capacidad de carga y tipo de desplazamiento).
+   - **Modal de detalle (`DetailModal`)** con cierre por clic externo o tecla `Escape`.
+   - **Balanza Comercial (`BalanzaDrawer`)** accesible desde cualquier tarjeta o botón flotante (`FabButton`) para calcular deuda y cambio óptimo en PP, GP, SP y CP.
 
-## Learn More
+2. **Conversor de Monedas (`/conversor`):**
+   - Transmutación instantánea entre Platino (`1000 cp`), Oro (`100 cp`), Plata (`10 cp`) y Bronce (`1 cp`), con botón para invertir divisas y validación de entradas negativas.
 
-To learn more about Next.js, take a look at the following resources:
+3. **Repartidor de Botín (`/guia-mercader`):**
+   - Divide tesoros entre 1 y 20 aventureros con modo de optimización de monedas o división por denominación física, mostrando valor consolidado, parte por jugador y fondo común sobrante. Incluye 3 cofres de carga rápida.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Arquitectura del Proyecto
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```text
+src/
+├── app/
+│   ├── layout.jsx              # Layout global, Header, Footer y MercaderProvider
+│   ├── globals.css             # Sistema de diseño Mobile-First (768px / 1024px)
+│   ├── page.jsx                # Códice con JOIN relacional en memoria
+│   ├── conversor/page.jsx      # Conversor de divisas D&D 5e
+│   └── guia-mercader/page.jsx  # Repartidor de botín grupal
+├── components/
+│   ├── Header.jsx              # Navegación principal con menú hamburguesa
+│   ├── Filtros.jsx             # Buscador, pestañas, chips y parámetros avanzados
+│   ├── ItemCard.jsx            # Tarjeta de reliquia con disparador a modal y balanza
+│   ├── DetailModal.jsx         # Vista detallada con accesibilidad ARIA y teclado
+│   ├── BalanzaDrawer.jsx       # Panel lateral de cálculo comercial
+│   ├── FabButton.jsx           # Botón flotante exclusivo del Códice
+│   └── Icon.jsx                # Librería de 22 íconos SVG vectoriales
+├── context/
+│   └── MercaderContext.jsx     # Estado global del ítem seleccionado y visibilidad del Drawer
+└── data/
+    └── mockItems.js            # Esquema relacional dbSeedData (tablas normalizadas)
