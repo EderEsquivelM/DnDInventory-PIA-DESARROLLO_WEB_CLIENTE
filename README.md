@@ -1,38 +1,37 @@
 # D&D Inventory — Códice del Dungeon Master
 
-Aplicación web responsiva desarrollada con **Next.js (App Router)** diseñada para asistir a Dungeon Masters y jugadores de **Dungeons & Dragons 5e** en la consulta relacional de equipamiento, cálculo comercial de cambio, conversión de divisas y repartición equitativa de botín.
+Aplicación web responsiva desarrollada con **Next.js (App Router)** para asistir a Dungeon Masters y jugadores de **Dungeons & Dragons 5e** en la consulta relacional de equipamiento, cálculo comercial de cambio, conversión de divisas y repartición equitativa de botín.
 
 ---
 
 ## Enlaces del Proyecto
 
-- **Aplicación en producción (GitHub Pages):** https://ederesquivelm.github.io/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE-/
-- **Repositorio Git:** https://github.com/EderEsquivelM/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE-
-- **Bitácora de uso crítico de IA:** [Ver BITACORA_IA.md](./BITACORA_IA.md)
+- **Aplicación en producción (GitHub Pages):** https://ederesquivelm.github.io/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE/
+- **Repositorio Git:** https://github.com/EderEsquivelM/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE
 
 ## Autoría
 
-- **Nombre:** Eder Abisai Esquivel Maldonado (`EderEsquivelM`)
+- **Estudiante:** Eder Abisai Esquivel Maldonado (`EderEsquivelM`)
 - **Materia:** Desarrollo Web Cliente — Producto Integrador de Aprendizaje (PIA)
-- **Modalidad:** Individual *(si es en equipo, agregar el segundo integrante y el desglose de tareas por persona)*
+- **Modalidad:** Individual
 
 ---
 
 ## Funcionalidades Principales
 
 ### 1. Códice de Ítems (`/`)
-- **Catálogo relacional de 100 objetos** organizados en 5 clases (*Consumibles*, *Armaduras*, *Armas*, *Transporte y Monturas* y *Equipo de Aventura*) y 14 subcategorías, unidos dinámicamente en memoria (`useMemo`) simulando un esquema SQL normalizado (`dbSeedData`).
-- **Búsqueda y filtrado avanzado:** búsqueda por nombre en tiempo real, pestañas por clase con conteo dinámico, chips de subcategoría, rangos de precio (en oro equivalente) y peso (lb), ordenamiento ascendente/descendente (`id`, `name`, `price`, `weight`) y filtros específicos según la clase seleccionada (CA mínima, requisito de fuerza, sigilo, tipo/dado/propiedades de daño, capacidad de carga, tipo de desplazamiento y uso).
-- **Modal de detalle (`DetailModal`):** ficha completa con peso, valor oficial, propiedades técnicas (incluyendo formato `+2 CA` para escudos) y cierre por clic externo o tecla `Escape`.
-- **Balanza Comercial (`BalanzaDrawer`):** panel lateral accesible desde cada tarjeta o desde el botón flotante (`FabButton`) para calcular deuda y cambio óptimo en platino (`pp`), oro (`gp`), plata (`sp`) y cobre (`cp`).
+- **Catálogo relacional de 100 objetos** organizados en 5 clases (*Consumibles*, *Armaduras*, *Armas*, *Transporte y Monturas* y *Equipo de Aventura*) y 14 subcategorías, unidos dinámicamente en memoria (`useMemo`) a partir de un esquema normalizado (`dbSeedData`).
+- **Búsqueda y filtrado avanzado:** búsqueda por nombre en tiempo real, pestañas por clase con conteo dinámico, chips de subcategoría, rangos de precio (en oro equivalente) y peso (lb), ordenamiento ascendente/descendente (`id`, `name`, `price`, `weight`) y filtros específicos según la clase seleccionada (CA mínima, requisito de fuerza, sigilo, tipo/dado/propiedades de daño, capacidad de carga, tipo de desplazamiento y característica de uso).
+- **Modal de detalle (`DetailModal`):** ficha técnica con carga física, valor oficial y propiedades específicas (incluyendo formato `+2 CA` para escudos), con cierre por clic externo o tecla `Escape`.
+- **Balanza Comercial (`BalanzaDrawer`):** panel lateral accesible desde cada tarjeta o mediante el botón flotante (`FabButton`) para calcular deuda y vuelto óptimo en platino (`pp`), oro (`gp`), plata (`sp`) y cobre (`cp`).
 
 ### 2. Conversor de Monedas (`/conversor`)
-- Transmutación inmediata entre Platino (`1000 cp`), Oro (`100 cp`), Plata (`10 cp`) y Bronce (`1 cp`).
-- Botón interactivo para invertir divisas de origen y destino, validación de entradas vacías o negativas con alertas accesibles (`role="alert"`) y salida semántica con `<output aria-live="polite">`.
+- Transmutación instantánea entre Platino (`1000 cp`), Oro (`100 cp`), Plata (`10 cp`) y Bronce (`1 cp`).
+- Botón interactivo para invertir divisas de origen y destino, validación de entradas vacías o negativas con alertas accesibles (`role="alert"`) y salida semántica mediante `<output aria-live="polite">`.
 
 ### 3. Repartidor de Botín (`/guia-mercader`)
 - División de tesoros para grupos de 1 a 20 aventureros con dos modos de cálculo: **optimización a monedas de mayor valor** o **reparto físico por denominación**.
-- Incluye 3 plantillas de carga rápida (*Cofre Trasgo*, *Bóveda de los Nobles* y *Tesoro de Mazmorra*) y despliega el valor consolidado en oro, la parte individual y el sobrante para el fondo común.
+- Incluye 3 plantillas de carga rápida (*Cofre Trasgo*, *Bóveda de los Nobles* y *Tesoro de Mazmorra*) y despliega el valor consolidado en oro, la parte por jugador y el sobrante para el fondo común.
 
 ---
 
@@ -67,19 +66,19 @@ src/
 
 ## Diseño Responsivo, Semántica y Accesibilidad
 
-- **Enfoque Mobile-First:** los estilos base en `src/app/globals.css` priorizan pantallas móviles con navegación hamburguesa y filtros colapsables, escalando mediante `@media (min-width: 768px)` (tablet) y `@media (min-width: 1024px)` (escritorio).
-- **Semántica HTML5:** estructura basada en `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<aside>`, `<footer>`, `<fieldset>`, `<legend>`, `<dl>`, `<dt>`, `<dd>` y `<output>`.
-- **Accesibilidad (WCAG / Axe Core):**
+- **Enfoque Mobile-First:** los estilos base en `src/app/globals.css` priorizan dispositivos móviles con navegación hamburguesa y filtros colapsables, adaptándose progresivamente mediante `@media (min-width: 768px)` (tablet) y `@media (min-width: 1024px)` (escritorio).
+- **Semántica HTML5:** estructura implementada con `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<aside>`, `<footer>`, `<fieldset>`, `<legend>`, `<dl>`, `<dt>`, `<dd>` y `<output>`.
+- **Accesibilidad:**
   - Paleta oscura de alto contraste (`#151515` fondo, `#222222` superficies, `#EAEAEA` texto principal, `#E07A6A` acento).
-  - Controles asociados con `<label htmlFor>`, estados ARIA (`aria-current`, `aria-expanded`, `aria-controls`, `aria-selected`, `aria-pressed`, `aria-live="polite"`) y mensajes de validación con `role="alert"`.
-  - Gestión de foco en teclado (`focus-visible`, tecla `Escape` y `visibility: hidden` en el drawer cerrado para prevenir el error `aria-hidden-focus`).
+  - Controles asociados con `<label htmlFor>`, estados ARIA (`aria-current`, `aria-expanded`, `aria-controls`, `aria-selected`, `aria-pressed`, `aria-live="polite"`) y mensajes de error con `role="alert"`.
+  - Gestión de foco por teclado (`focus-visible`, cierre con `Escape` y `visibility: hidden` en el drawer cerrado para evitar el fallo `aria-hidden-focus`).
 
 ---
 
 ## Servicios Externos e Infraestructura
 
-- **Google Fonts CSS2 API:** carga de las tipografías `Cinzel` y `Crimson Text` con `display=swap` y respaldo tipográfico local (`Georgia, serif`).
-- **GitHub Actions + GitHub Pages:** exportación estática configurada en `next.config.mjs` (`output: 'export'`, `basePath`, `trailingSlash: true`) y publicada automáticamente mediante `.github/workflows/nextjs.yml` en cada `push` a `main`.
+- **Google Fonts CSS2 API:** carga de las familias tipográficas `Cinzel` y `Crimson Text` con `display=swap` y respaldo local (`Georgia, serif`).
+- **GitHub Actions + GitHub Pages:** exportación estática configurada en `next.config.mjs` (`output: 'export'`, `basePath`, `trailingSlash: true`) y desplegada automáticamente con `.github/workflows/nextjs.yml`.
 
 ---
 
@@ -104,22 +103,6 @@ npm run build
 
 ---
 
-## Flujo de Ramas Git
+## Control de Versiones y Despliegue
 
-- `main`: rama estable conectada al despliegue automático en GitHub Pages.
-- *(Agregar aquí los nombres reales de tus ramas de desarrollo/funcionalidades, por ejemplo `develop` o `feature/...`, si las utilizaste en el repositorio.)*
-
----
-
-## Evidencias de Calidad y Pruebas
-
-### Resultados de Auditoría (Producción)
-
-| Ruta | Performance | Accessibility | Best Practices | SEO | Errores Axe Core |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| `/` (Códice) | `[Completar]` | `[Completar]` | `[Completar]` | `[Completar]` | `[Completar]` |
-| `/conversor` | `[Completar]` | `[Completar]` | `[Completar]` | `[Completar]` | `[Completar]` |
-| `/guia-mercader` | `[Completar]` | `[Completar]` | `[Completar]` | `[Completar]` | `[Completar]` |
-
-### Capturas de Pantalla
-- *(Insertar aquí capturas de vista Móvil 375px, Tablet 768px, Escritorio 1280px, Lighthouse y Axe Core)*
+El repositorio trabaja directamente sobre la rama principal **`main`**, la cual dispara de forma automática el flujo `.github/workflows/nextjs.yml` en cada `push` para instalar dependencias, compilar la exportación estática (`out/`) y publicar los cambios en GitHub Pages.
