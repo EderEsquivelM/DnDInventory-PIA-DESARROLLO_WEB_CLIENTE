@@ -1,4 +1,6 @@
 export const dbSeedData = {
+
+  //Tipo de items
   item_classes: [
     { id: 1, name: 'Consumibles' },
     { id: 2, name: 'Armaduras' },
