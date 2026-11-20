@@ -281,7 +281,6 @@ export default function FiltrosRitual({
                         onReset={handleFormReset}
                         noValidate
                     >
-                        {/* BLOQUE 1: RANGOS Y ORDENAMIENTO (SIEMPRE VISIBLES POR DEFECTO) */}
                         <fieldset className="filter-fieldset">
                             <legend className="filter-legend">Rangos y Ordenamiento</legend>
 
@@ -366,7 +365,6 @@ export default function FiltrosRitual({
                             </div>
                         </fieldset>
 
-                        {/* BLOQUE 2: PROPIEDADES DINÁMICAS SEGÚN EL TIPO DE ÍTEM SELECCIONADO */}
                         {filters.categoria && (
                             <fieldset className="filter-fieldset filter-fieldset-props">
                                 <legend className="filter-legend">
