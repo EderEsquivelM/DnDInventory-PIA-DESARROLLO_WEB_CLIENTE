@@ -1,49 +1,125 @@
 # D&D Inventory — Códice del Dungeon Master
 
-Aplicación web responsiva desarrollada con **Next.js (App Router)** diseñada para asistir a Dungeon Masters y jugadores de **Dungeons & Dragons 5e** en la consulta de equipamiento, cálculo de cambio comercial, conversión de divisas y repartición equitativa de botín.
+Aplicación web responsiva desarrollada con **Next.js (App Router)** diseñada para asistir a Dungeon Masters y jugadores de **Dungeons & Dragons 5e** en la consulta relacional de equipamiento, cálculo comercial de cambio, conversión de divisas y repartición equitativa de botín.
+
+---
 
 ## Enlaces del Proyecto
 
-- **Aplicación en producción (GitHub Pages):** https://ederesquivelm.github.io/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE/
-- **Repositorio Git:** https://github.com/EderEsquivelM/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE
+- **Aplicación en producción (GitHub Pages):** https://ederesquivelm.github.io/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE-/
+- **Repositorio Git:** https://github.com/EderEsquivelM/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE-
+- **Bitácora de uso crítico de IA:** [Ver BITACORA_IA.md](./BITACORA_IA.md)
+
+## Autoría
+
+- **Nombre:** Eder Abisai Esquivel Maldonado (`EderEsquivelM`)
+- **Materia:** Desarrollo Web Cliente — Producto Integrador de Aprendizaje (PIA)
+- **Modalidad:** Individual *(si es en equipo, agregar el segundo integrante y el desglose de tareas por persona)*
 
 ---
 
 ## Funcionalidades Principales
 
-1. **Códice de Ítems (`/`):**
-   - Catálogo relacional de **100 objetos** organizados en 5 clases (*Consumibles*, *Armaduras*, *Armas*, *Transporte y Monturas* y *Equipo de Aventura*) y 14 subcategorías.
-   - Búsqueda en tiempo real, filtros por rango de precio (en oro equivalente) y peso (lb), ordenamiento ascendente/descendente y filtros dinámicos según el tipo de objeto (CA, requisito de fuerza, sigilo, tipo/dado/propiedades de daño, capacidad de carga y tipo de desplazamiento).
-   - **Modal de detalle (`DetailModal`)** con cierre por clic externo o tecla `Escape`.
-   - **Balanza Comercial (`BalanzaDrawer`)** accesible desde cualquier tarjeta o botón flotante (`FabButton`) para calcular deuda y cambio óptimo en PP, GP, SP y CP.
+### 1. Códice de Ítems (`/`)
+- **Catálogo relacional de 100 objetos** organizados en 5 clases (*Consumibles*, *Armaduras*, *Armas*, *Transporte y Monturas* y *Equipo de Aventura*) y 14 subcategorías, unidos dinámicamente en memoria (`useMemo`) simulando un esquema SQL normalizado (`dbSeedData`).
+- **Búsqueda y filtrado avanzado:** búsqueda por nombre en tiempo real, pestañas por clase con conteo dinámico, chips de subcategoría, rangos de precio (en oro equivalente) y peso (lb), ordenamiento ascendente/descendente (`id`, `name`, `price`, `weight`) y filtros específicos según la clase seleccionada (CA mínima, requisito de fuerza, sigilo, tipo/dado/propiedades de daño, capacidad de carga, tipo de desplazamiento y uso).
+- **Modal de detalle (`DetailModal`):** ficha completa con peso, valor oficial, propiedades técnicas (incluyendo formato `+2 CA` para escudos) y cierre por clic externo o tecla `Escape`.
+- **Balanza Comercial (`BalanzaDrawer`):** panel lateral accesible desde cada tarjeta o desde el botón flotante (`FabButton`) para calcular deuda y cambio óptimo en platino (`pp`), oro (`gp`), plata (`sp`) y cobre (`cp`).
 
-2. **Conversor de Monedas (`/conversor`):**
-   - Transmutación instantánea entre Platino (`1000 cp`), Oro (`100 cp`), Plata (`10 cp`) y Bronce (`1 cp`), con botón para invertir divisas y validación de entradas negativas.
+### 2. Conversor de Monedas (`/conversor`)
+- Transmutación inmediata entre Platino (`1000 cp`), Oro (`100 cp`), Plata (`10 cp`) y Bronce (`1 cp`).
+- Botón interactivo para invertir divisas de origen y destino, validación de entradas vacías o negativas con alertas accesibles (`role="alert"`) y salida semántica con `<output aria-live="polite">`.
 
-3. **Repartidor de Botín (`/guia-mercader`):**
-   - Divide tesoros entre 1 y 20 aventureros con modo de optimización de monedas o división por denominación física, mostrando valor consolidado, parte por jugador y fondo común sobrante. Incluye 3 cofres de carga rápida.
+### 3. Repartidor de Botín (`/guia-mercader`)
+- División de tesoros para grupos de 1 a 20 aventureros con dos modos de cálculo: **optimización a monedas de mayor valor** o **reparto físico por denominación**.
+- Incluye 3 plantillas de carga rápida (*Cofre Trasgo*, *Bóveda de los Nobles* y *Tesoro de Mazmorra*) y despliega el valor consolidado en oro, la parte individual y el sobrante para el fondo común.
 
 ---
 
 ## Arquitectura del Proyecto
 
 ```text
+.github/
+└── workflows/
+    └── nextjs.yml              # Pipeline CI/CD para compilación y despliegue en GitHub Pages
 src/
 ├── app/
-│   ├── layout.jsx              # Layout global, Header, Footer y MercaderProvider
-│   ├── globals.css             # Sistema de diseño Mobile-First (768px / 1024px)
-│   ├── page.jsx                # Códice con JOIN relacional en memoria
+│   ├── layout.jsx              # Layout global, metadatos, Header, Footer y MercaderProvider
+│   ├── globals.css             # Sistema de diseño oscuro Mobile-First (768px / 1024px)
+│   ├── page.jsx                # Códice principal con JOIN relacional y motor de filtrado
 │   ├── conversor/page.jsx      # Conversor de divisas D&D 5e
 │   └── guia-mercader/page.jsx  # Repartidor de botín grupal
 ├── components/
-│   ├── Header.jsx              # Navegación principal con menú hamburguesa
-│   ├── Filtros.jsx             # Buscador, pestañas, chips y parámetros avanzados
-│   ├── ItemCard.jsx            # Tarjeta de reliquia con disparador a modal y balanza
-│   ├── DetailModal.jsx         # Vista detallada con accesibilidad ARIA y teclado
-│   ├── BalanzaDrawer.jsx       # Panel lateral de cálculo comercial
-│   ├── FabButton.jsx           # Botón flotante exclusivo del Códice
-│   └── Icon.jsx                # Librería de 22 íconos SVG vectoriales
+│   ├── Header.jsx              # Navegación principal sticky con menú hamburguesa
+│   ├── Filtros.jsx             # Buscador, pestañas, chips y formulario de filtros avanzados
+│   ├── ItemCard.jsx            # Tarjeta de objeto con acceso a detalle y balanza comercial
+│   ├── DetailModal.jsx         # Modal accesible (role="dialog", Escape, backdrop)
+│   ├── BalanzaDrawer.jsx       # Drawer lateral de cálculo comercial y cambio óptimo
+│   ├── FabButton.jsx           # Botón flotante para abrir la Balanza Comercial
+│   └── Icon.jsx                # Biblioteca propia de 22 íconos SVG vectoriales
 ├── context/
 │   └── MercaderContext.jsx     # Estado global del ítem seleccionado y visibilidad del Drawer
 └── data/
-    └── mockItems.js            # Esquema relacional dbSeedData (tablas normalizadas)
+    └── mockItems.js            # Base de datos relacional normalizada (dbSeedData)
+```
+
+---
+
+## Diseño Responsivo, Semántica y Accesibilidad
+
+- **Enfoque Mobile-First:** los estilos base en `src/app/globals.css` priorizan pantallas móviles con navegación hamburguesa y filtros colapsables, escalando mediante `@media (min-width: 768px)` (tablet) y `@media (min-width: 1024px)` (escritorio).
+- **Semántica HTML5:** estructura basada en `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<aside>`, `<footer>`, `<fieldset>`, `<legend>`, `<dl>`, `<dt>`, `<dd>` y `<output>`.
+- **Accesibilidad (WCAG / Axe Core):**
+  - Paleta oscura de alto contraste (`#151515` fondo, `#222222` superficies, `#EAEAEA` texto principal, `#E07A6A` acento).
+  - Controles asociados con `<label htmlFor>`, estados ARIA (`aria-current`, `aria-expanded`, `aria-controls`, `aria-selected`, `aria-pressed`, `aria-live="polite"`) y mensajes de validación con `role="alert"`.
+  - Gestión de foco en teclado (`focus-visible`, tecla `Escape` y `visibility: hidden` en el drawer cerrado para prevenir el error `aria-hidden-focus`).
+
+---
+
+## Servicios Externos e Infraestructura
+
+- **Google Fonts CSS2 API:** carga de las tipografías `Cinzel` y `Crimson Text` con `display=swap` y respaldo tipográfico local (`Georgia, serif`).
+- **GitHub Actions + GitHub Pages:** exportación estática configurada en `next.config.mjs` (`output: 'export'`, `basePath`, `trailingSlash: true`) y publicada automáticamente mediante `.github/workflows/nextjs.yml` en cada `push` a `main`.
+
+---
+
+## Instalación y Ejecución Local
+
+Requisitos previos: **Node.js 20+** y **npm**.
+
+```bash
+# 1. Clonar el repositorio
+git clone [https://github.com/EderEsquivelM/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE-.git](https://github.com/EderEsquivelM/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE-.git)
+cd DnDInventory-PIA-DESARROLLO_WEB_CLIENTE-
+
+# 2. Instalar dependencias
+npm install
+
+# 3. Ejecutar servidor de desarrollo
+npm run dev
+
+# 4. Generar exportación estática de producción (carpeta /out)
+npm run build
+```
+
+---
+
+## Flujo de Ramas Git
+
+- `main`: rama estable conectada al despliegue automático en GitHub Pages.
+- *(Agregar aquí los nombres reales de tus ramas de desarrollo/funcionalidades, por ejemplo `develop` o `feature/...`, si las utilizaste en el repositorio.)*
+
+---
+
+## Evidencias de Calidad y Pruebas
+
+### Resultados de Auditoría (Producción)
+
+| Ruta | Performance | Accessibility | Best Practices | SEO | Errores Axe Core |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| `/` (Códice) | `[Completar]` | `[Completar]` | `[Completar]` | `[Completar]` | `[Completar]` |
+| `/conversor` | `[Completar]` | `[Completar]` | `[Completar]` | `[Completar]` | `[Completar]` |
+| `/guia-mercader` | `[Completar]` | `[Completar]` | `[Completar]` | `[Completar]` | `[Completar]` |
+
+### Capturas de Pantalla
+- *(Insertar aquí capturas de vista Móvil 375px, Tablet 768px, Escritorio 1280px, Lighthouse y Axe Core)*
