@@ -88,8 +88,8 @@ Requisitos previos: **Node.js 20+** y **npm**.
 
 ```bash
 # 1. Clonar el repositorio
-git clone [https://github.com/EderEsquivelM/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE-.git](https://github.com/EderEsquivelM/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE-.git)
-cd DnDInventory-PIA-DESARROLLO_WEB_CLIENTE-
+git clone [https://github.com/EderEsquivelM/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE-.git](https://github.com/EderEsquivelM/DnDInventory-PIA-DESARROLLO_WEB_CLIENTE.git)
+cd DnDInventory-PIA-DESARROLLO_WEB_CLIENTE
 
 # 2. Instalar dependencias
 npm install
