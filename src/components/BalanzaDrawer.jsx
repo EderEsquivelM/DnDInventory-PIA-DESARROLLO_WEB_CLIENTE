@@ -120,14 +120,12 @@ export default function BalanzaDrawer() {
 
     return (
         <>
-            {/* OVERLAY DEL DRAWER */}
             <div
                 className={`drawer-overlay ${isOpen ? '' : 'hidden'}`}
                 onClick={() => toggleDrawer(false)}
                 aria-hidden="true"
             ></div>
 
-            {/* DRAWER: Calculadora / Balanza del Mercader */}
             <aside
                 className={`commercial-drawer ${isOpen ? 'open' : ''}`}
                 aria-label="Calculadora Comercial del Mercader"
@@ -168,7 +166,6 @@ export default function BalanzaDrawer() {
                 </div>
 
                 <div className="drawer-content">
-                    {/* Info del Ítem (Estilo Ticket) */}
                     <section className="purchase-ticket" aria-labelledby="ticket-heading">
                         <h3 id="ticket-heading">Manifiesto de Compra</h3>
                         <strong>{selectedItem ? selectedItem.name : 'Sin reliquia seleccionada'}</strong>
@@ -192,9 +189,7 @@ export default function BalanzaDrawer() {
                         </div>
                     </section>
 
-                    {/* Formulario Dividido en 2 Columnas Reales */}
                     <form className="payment-panel" onSubmit={handleSubmit} onReset={handleResetBag} noValidate>
-                        {/* Columna Izquierda: Precio Fijo */}
                         <fieldset className="payment-column" style={{ border: 0, margin: 0, padding: 0 }}>
                             <legend style={{ width: '100%', padding: 0 }}>
                                 <h3>Deuda</h3>
@@ -217,7 +212,6 @@ export default function BalanzaDrawer() {
                             </div>
                         </fieldset>
 
-                        {/* Columna Derecha: Pago del Usuario */}
                         <fieldset className="payment-column" style={{ border: 0, margin: 0, padding: 0 }}>
                             <legend style={{ width: '100%', padding: 0 }}>
                                 <h3>Tu Bolsa</h3>
@@ -280,7 +274,6 @@ export default function BalanzaDrawer() {
                             </button>
                         </div>
 
-                        {/* Resultado del Cálculo usando etiqueta semántica <output> */}
                         <output
                             className={`result-box ${changeResult.status === 'danger' ? 'danger' : changeResult.status === 'success' ? 'success' : ''}`}
                             aria-live="polite"

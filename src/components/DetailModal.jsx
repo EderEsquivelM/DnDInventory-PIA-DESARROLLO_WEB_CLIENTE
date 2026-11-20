@@ -85,10 +85,12 @@ export default function DetailModal({ item, onClose }) {
                                 {item.damage_type_name
                                     ? `${item.damage_dice} ${item.damage_type_name}`
                                     : item.armor_class
-                                      ? `CA ${item.armor_class}`
-                                      : item.speed
-                                        ? `Vel. ${item.speed}`
-                                        : item.meta}
+                                        ? (item.category_id === 11
+                                            ? `+${item.armor_class} CA`
+                                            : `CA ${item.armor_class}`)
+                                        : item.speed
+                                            ? `Vel. ${item.speed}`
+                                            : item.meta}
                             </strong>
                         </dd>
                     </div>
